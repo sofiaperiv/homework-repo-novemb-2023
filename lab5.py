@@ -81,11 +81,12 @@ def main():
     calendar.add_weather_objects(weather4)
     calendar.add_weather_objects(weather5)
 
-    print("weather1 getAll: ", weather1.getAll())
-    print("weather2 getAll: ", weather2.getAll())
-    print("weather3 getAll: ", weather3.getAll())
-    print("weather4 getAll: ", weather4.getAll())
-    print("weather5 getAll: ", weather5.getAll())
+    print("weather1 getAll: ", weather1.get_all_parameters())
+    print("weather2 getAll: ", weather2.get_all_parameters())
+    print("weather3 getAll: ", weather3.get_all_parameters())
+    print("weather4 getAll: ", weather4.get_all_parameters())
+    print("weather5 getAll: ", weather5.get_all_parameters())
+
 
     print("Max temperature was on", calendar.findMaxTemperature())
 
