@@ -25,7 +25,8 @@ class Weather(object):
     def __del__(self):
         print("Cleanup has been completed")
         
-    def getAll(self):
+    def get_all_parameters(self):
+
         """
         Explanatiom huy na blude
         :return: pizdec
