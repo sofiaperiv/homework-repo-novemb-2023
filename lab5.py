@@ -4,6 +4,7 @@ class City(Enum):
     LVIV = 1
     KYIV = 2 
     BURSHTYN = 3
+    DNIPRO = 4
 
 class WeatherType(Enum):
     SUNNY = 0
@@ -11,7 +12,7 @@ class WeatherType(Enum):
     RAINY = 2
     FOGGY = 3
 
-class Weather(object):
+class Weather:
 
     def __init__(self, day, city, country, temp, humidity, wind_speed, weather_type):
         self.day = day
@@ -26,14 +27,10 @@ class Weather(object):
         print("Cleanup has been completed")
         
     def get_all_parameters(self):
-
-        """
-        Explanatiom huy na blude
-        :return: pizdec
-        """
-        return f"The temperature on {self.day} in {self.city.name}, {self.country} was {self.temp} Celsius degrees. The humidity was {self.humidity} %, the wind speed was {self.wind_speed} and the weather outside is {self.weather_type.name}" 
-
-
+        return (f"The temperature on {self.day} in {self.city.name}, "
+                f"{self.country} was {self.temp} Celsius degrees. The humidity was "
+                f"{self.humidity} %, the wind speed was {self.wind_speed} and "
+                f"the weather outside is {self.weather_type.name}")
 
 class WeatherCalendar(Weather):
     def __init__(self):
@@ -42,7 +39,7 @@ class WeatherCalendar(Weather):
     def add_weather_objects(self, obj):
         self.weather_objects.append(obj)
 
-    def findMaxTemperature(self):
+    def find_max_temperature(self):
         max_temp = None
         max_temp_day = None
         for obj in self.weather_objects:
@@ -55,7 +52,7 @@ class WeatherCalendar(Weather):
             return "Not enough data"
         
     
-    def isLvivWeather(self, humidity, weather_type):
+    def is_lviv_weather(self, humidity, weather_type):
         for obj in self.weather_objects:
             if humidity > 80 and weather_type == WeatherType.RAINY and obj.city is City.LVIV:
                 return "The typical day in Lviv"
@@ -68,30 +65,30 @@ class WeatherCalendar(Weather):
 
         
 def main():
-    weather1 = Weather(1, City.LVIV, "Ukraine", 2, 80, 10, WeatherType.FOGGY)
-    weather2 = Weather(9, City.KYIV, "Ukraine", 4, 67, 7, WeatherType.CLOUDY)
-    weather3 = Weather(3, City.BURSHTYN, "Ukraine", 3, 72, 8, WeatherType.SUNNY)
-    weather4 = Weather(6, City.LVIV, "Ukraine", 7, 89, 9, WeatherType.RAINY)
-    weather5 = Weather(5, City.LVIV, "Ukraine", 1, 76, 6, WeatherType.FOGGY)
+    dnipro_foggy = Weather(1, City.DNIPRO, "Ukraine", 2, 80, 10, WeatherType.FOGGY)
+    kyiv_cloudy = Weather(9, City.KYIV, "Ukraine", 4, 67, 7, WeatherType.CLOUDY)
+    burshtyn_sunny = Weather(3, City.BURSHTYN, "Ukraine", 3, 72, 8, WeatherType.SUNNY)
+    lviv_rainy = Weather(6, City.LVIV, "Ukraine", 7, 89, 9, WeatherType.RAINY)
+    lviv_foggy = Weather(5, City.LVIV, "Ukraine", 1, 76, 6, WeatherType.FOGGY)
     
     calendar = WeatherCalendar()
-    calendar.add_weather_objects(weather1)
-    calendar.add_weather_objects(weather2)
-    calendar.add_weather_objects(weather3)
-    calendar.add_weather_objects(weather4)
-    calendar.add_weather_objects(weather5)
+    calendar.add_weather_objects(dnipro_foggy)
+    calendar.add_weather_objects(kyiv_cloudy)
+    calendar.add_weather_objects(burshtyn_sunny)
+    calendar.add_weather_objects(lviv_rainy)
+    calendar.add_weather_objects(lviv_foggy)
 
-    print("weather1 getAll: ", weather1.get_all_parameters())
-    print("weather2 getAll: ", weather2.get_all_parameters())
-    print("weather3 getAll: ", weather3.get_all_parameters())
-    print("weather4 getAll: ", weather4.get_all_parameters())
-    print("weather5 getAll: ", weather5.get_all_parameters())
+    print("dnipro_foggy displaying all parameters: ", dnipro_foggy.get_all_parameters())
+    print("kyiv_cloudy displaying all parameters: ", kyiv_cloudy.get_all_parameters())
+    print("burshtyn_sunny displaying all parameters: ", burshtyn_sunny.get_all_parameters())
+    print("lviv_rainy displaying all parameters: ", lviv_rainy.get_all_parameters())
+    print("lviv_foggy displaying all parameters: ", lviv_foggy.get_all_parameters())
 
 
-    print("Max temperature was on", calendar.findMaxTemperature())
+    print("Max temperature was on", calendar.find_max_temperature())
 
     for obj in calendar.weather_objects:
-        result = calendar.isLvivWeather(obj.humidity, obj.weather_type)
+        result = calendar.is_lviv_weather(obj.humidity, obj.weather_type)
         print(f"On day {obj.day}, {result}")
 
 
